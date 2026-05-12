@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaaSly - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.6.1/dist/frappe-charts.min.iife.js"></script>
+    <script src="https://unpkg.com/frappe-charts@1.6.2/dist/frappe-charts.min.iife.js" crossorigin="anonymous"></script>
     <script>
 window['_fs_host'] = 'fullstory.com';
 window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
@@ -52,16 +52,20 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
     </main>
 
   <script>
-    // This ensures the code only runs AFTER the page and library are fully loaded
-    window.onload = function() {
-        try {
-            const revData = {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-                datasets: [{ values: [12000, 19000, 15000, 22000, 24000, 24500] }]
-            };
+    function initCharts() {
+        // Check if frappe is actually loaded
+        if (typeof frappe === 'undefined') {
+            console.log("Frappe not ready yet, retrying in 100ms...");
+            setTimeout(initCharts, 100); // Try again in a heartbeat
+            return;
+        }
 
+        try {
             new frappe.Chart("#chart-revenue", {
-                data: revData,
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                    datasets: [{ values: [12000, 19000, 15000, 22000, 24000, 24500] }]
+                },
                 type: 'line', 
                 height: 250,
                 colors: ['#3b82f6']
@@ -76,12 +80,19 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
                 height: 250,
                 colors: ['#e2e8f0', '#3b82f6', '#0f172a']
             });
-            
-            console.log("Charts initialized successfully!");
-        } catch (error) {
-            console.error("Chart failed to load:", error);
+            console.log("Charts loaded perfectly!");
+        } catch (e) {
+            console.error("Chart render error:", e);
         }
-    };
+    }
+
+    // Fire the function
+    if (document.readyState === 'complete') {
+        initCharts();
+    } else {
+        window.addEventListener('load', initCharts);
+    }
 </script>
+
 </body>
 </html>
