@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics - SaaSly</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
 window['_fs_host'] = 'fullstory.com';
 window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
@@ -28,6 +24,15 @@ g.log=function(b,d){h("log",{level:b,msg:d})},g.consent=function(b){h("setIdenti
 f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){return g._w[s].apply(this,arguments)}),g._v="2.0.0")
 }(window,document,window._fs_namespace,"script",window._fs_script);
 </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - SaaSly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.js"></script>
+    <style>
+        .ct-chart { height: 300px; }
+        .ct-series-a .ct-bar { stroke: #3b82f6; stroke-width: 30px; }
+    </style>
 </head>
 <body class="bg-gray-50 flex h-screen">
     <div class="w-64 bg-slate-900 text-white hidden md:flex flex-col">
@@ -39,27 +44,33 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
         </nav>
     </div>
 
-    <main class="flex-1 overflow-y-auto p-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Deep Dive Analytics</h2>
-        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            <h3 class="font-bold text-gray-800 mb-4">Traffic Sources (Monthly)</h3>
-            <canvas id="trafficChart" height="100"></canvas>
+    <main class="flex-1 overflow-y-auto p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Traffic Breakdown</h2>
+            <button onclick="updateAnalytics()" class="bg-white border border-gray-300 px-4 py-2 rounded shadow-sm hover:bg-gray-50 text-sm font-medium">Refresh Data</button>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <div id="traffic-chart" class="ct-chart"></div>
         </div>
     </main>
 
     <script>
-        const ctx = document.getElementById('trafficChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Direct', 'Social Media', 'Referral', 'Organic Search', 'Email'],
-                datasets: [{
-                    label: 'Visits',
-                    data: [4500, 2900, 1500, 6200, 3100],
-                    backgroundColor: '#3b82f6'
-                }]
-            }
-        });
+        let chart;
+        window.onload = function() {
+            chart = new Chartist.Bar('#traffic-chart', {
+                labels: ['Direct', 'Social', 'Search', 'Ads'],
+                series: [[400, 250, 600, 150]]
+            });
+        };
+
+        function updateAnalytics() {
+            // Simulate new data appearing
+            chart.update({
+                labels: ['Direct', 'Social', 'Search', 'Ads'],
+                series: [[Math.random()*500, Math.random()*500, Math.random()*500, Math.random()*500]]
+            });
+        }
     </script>
 </body>
 </html>
