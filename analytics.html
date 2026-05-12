@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - SaaSly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 flex h-screen">
+    <div class="w-64 bg-slate-900 text-white hidden md:flex flex-col">
+        <div class="p-6 text-2xl font-bold border-b border-slate-800">SaaSly</div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="index.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition text-slate-300">Dashboard</a>
+            <a href="analytics.html" class="block py-2.5 px-4 rounded bg-blue-600">Analytics</a>
+            <a href="customers.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition text-slate-300">Customers</a>
+        </nav>
+    </div>
+
+    <main class="flex-1 overflow-y-auto p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Deep Dive Analytics</h2>
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+            <h3 class="font-bold text-gray-800 mb-4">Traffic Sources (Monthly)</h3>
+            <canvas id="trafficChart" height="100"></canvas>
+        </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Direct', 'Social Media', 'Referral', 'Organic Search', 'Email'],
+                datasets: [{
+                    label: 'Visits',
+                    data: [4500, 2900, 1500, 6200, 3100],
+                    backgroundColor: '#3b82f6'
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
