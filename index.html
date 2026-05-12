@@ -51,28 +51,37 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
         </div>
     </main>
 
-    <script>
-        const data = {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-            datasets: [{ values: [12000, 19000, 15000, 22000, 24000, 24500] }]
-        };
+  <script>
+    // This ensures the code only runs AFTER the page and library are fully loaded
+    window.onload = function() {
+        try {
+            const revData = {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                datasets: [{ values: [12000, 19000, 15000, 22000, 24000, 24500] }]
+            };
 
-        new frappe.Chart("#chart-revenue", {
-            data: data,
-            type: 'line', 
-            height: 250,
-            colors: ['#3b82f6']
-        });
+            new frappe.Chart("#chart-revenue", {
+                data: revData,
+                type: 'line', 
+                height: 250,
+                colors: ['#3b82f6']
+            });
 
-        new frappe.Chart("#chart-users", {
-            data: {
-                labels: ["Free", "Pro", "Enterprise"],
-                datasets: [{ values: [500, 600, 184] }]
-            },
-            type: 'percentage', // Frappe's version of a doughnut/pie
-            height: 250,
-            colors: ['#e2e8f0', '#3b82f6', '#0f172a']
-        });
-    </script>
+            new frappe.Chart("#chart-users", {
+                data: {
+                    labels: ["Free", "Pro", "Enterprise"],
+                    datasets: [{ values: [500, 600, 184] }]
+                },
+                type: 'percentage',
+                height: 250,
+                colors: ['#e2e8f0', '#3b82f6', '#0f172a']
+            });
+            
+            console.log("Charts initialized successfully!");
+        } catch (error) {
+            console.error("Chart failed to load:", error);
+        }
+    };
+</script>
 </body>
 </html>
