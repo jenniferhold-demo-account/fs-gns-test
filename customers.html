@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customers - SaaSly</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
 window['_fs_host'] = 'fullstory.com';
 window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
@@ -28,6 +24,9 @@ g.log=function(b,d){h("log",{level:b,msg:d})},g.consent=function(b){h("setIdenti
 f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){return g._w[s].apply(this,arguments)}),g._v="2.0.0")
 }(window,document,window._fs_namespace,"script",window._fs_script);
 </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - SaaSly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 flex h-screen">
     <div class="w-64 bg-slate-900 text-white hidden md:flex flex-col">
@@ -39,44 +38,55 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
         </nav>
     </div>
 
-    <main class="flex-1 overflow-y-auto p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Customer Directory</h2>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">+ Add Customer</button>
+    <main class="flex-1 overflow-y-auto p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">User Management</h2>
+        
+        <div class="flex space-x-2 mb-6">
+            <button onclick="filterTable('all')" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">All</button>
+            <button onclick="filterTable('Pro')" class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm hover:bg-gray-50">Pro Only</button>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <table class="w-full text-left">
-                    <tr class="bg-gray-50 text-xs text-gray-500 uppercase"><th class="p-4">User</th><th class="p-4">Plan</th><th class="p-4">Activity</th></tr>
-                    <tr class="border-t border-gray-100"><td class="p-4">Jordan Smith</td><td class="p-4 text-sm text-gray-600">Enterprise</td><td class="p-4 text-green-500 text-sm font-bold">High</td></tr>
-                    <tr class="border-t border-gray-100"><td class="p-4">Mia Wong</td><td class="p-4 text-sm text-gray-600">Pro</td><td class="p-4 text-blue-500 text-sm font-bold">Medium</td></tr>
-                    <tr class="border-t border-gray-100"><td class="p-4">Liam Neeson</td><td class="p-4 text-sm text-gray-600">Free</td><td class="p-4 text-red-500 text-sm font-bold">Low</td></tr>
-                </table>
-            </div>
-            
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <h3 class="font-bold text-gray-800 mb-4">Engagement Metrics</h3>
-                <canvas id="radarChart"></canvas>
-            </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <table class="w-full text-left" id="userTable">
+                <thead>
+                    <tr class="bg-gray-50 text-xs text-gray-500 uppercase">
+                        <th class="p-4">Customer</th>
+                        <th class="p-4">Plan</th>
+                        <th class="p-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr class="user-row" data-plan="Enterprise">
+                        <td class="p-4 font-medium">Alex Rivera</td>
+                        <td class="p-4 text-sm text-gray-600">Enterprise</td>
+                        <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Active</span></td>
+                    </tr>
+                    <tr class="user-row" data-plan="Pro">
+                        <td class="p-4 font-medium">Sarah Jenkins</td>
+                        <td class="p-4 text-sm text-gray-600">Pro</td>
+                        <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Active</span></td>
+                    </tr>
+                    <tr class="user-row" data-plan="Free">
+                        <td class="p-4 font-medium">Liam Neeson</td>
+                        <td class="p-4 text-sm text-gray-600">Free</td>
+                        <td class="p-4"><span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs">Churned</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
 
     <script>
-        const ctx = document.getElementById('radarChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['Login', 'API Calls', 'Support', 'Referrals', 'Uploads'],
-                datasets: [{
-                    label: 'User Engagement',
-                    data: [90, 70, 40, 60, 80],
-                    fill: true,
-                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                    borderColor: 'rgb(59, 130, 246)',
-                }]
-            }
-        });
+        function filterTable(plan) {
+            const rows = document.querySelectorAll('.user-row');
+            rows.forEach(row => {
+                if (plan === 'all' || row.getAttribute('data-plan') === plan) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
