@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - SaaSly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 flex h-screen">
+    <div class="w-64 bg-slate-900 text-white hidden md:flex flex-col">
+        <div class="p-6 text-2xl font-bold border-b border-slate-800">SaaSly</div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="index.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition text-slate-300">Dashboard</a>
+            <a href="analytics.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition text-slate-300">Analytics</a>
+            <a href="customers.html" class="block py-2.5 px-4 rounded bg-blue-600">Customers</a>
+        </nav>
+    </div>
+
+    <main class="flex-1 overflow-y-auto p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Customer Directory</h2>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">+ Add Customer</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <table class="w-full text-left">
+                    <tr class="bg-gray-50 text-xs text-gray-500 uppercase"><th class="p-4">User</th><th class="p-4">Plan</th><th class="p-4">Activity</th></tr>
+                    <tr class="border-t border-gray-100"><td class="p-4">Jordan Smith</td><td class="p-4 text-sm text-gray-600">Enterprise</td><td class="p-4 text-green-500 text-sm font-bold">High</td></tr>
+                    <tr class="border-t border-gray-100"><td class="p-4">Mia Wong</td><td class="p-4 text-sm text-gray-600">Pro</td><td class="p-4 text-blue-500 text-sm font-bold">Medium</td></tr>
+                    <tr class="border-t border-gray-100"><td class="p-4">Liam Neeson</td><td class="p-4 text-sm text-gray-600">Free</td><td class="p-4 text-red-500 text-sm font-bold">Low</td></tr>
+                </table>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-gray-800 mb-4">Engagement Metrics</h3>
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Login', 'API Calls', 'Support', 'Referrals', 'Uploads'],
+                datasets: [{
+                    label: 'User Engagement',
+                    data: [90, 70, 40, 60, 80],
+                    fill: true,
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgb(59, 130, 246)',
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
