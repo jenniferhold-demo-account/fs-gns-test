@@ -30,93 +30,48 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
 </script>
 </head>
 <body class="bg-gray-50 flex h-screen">
-
     <div class="w-64 bg-slate-900 text-white hidden md:flex flex-col">
         <div class="p-6 text-2xl font-bold border-b border-slate-800">SaaSly</div>
         <nav class="flex-1 p-4 space-y-2">
             <a href="index.html" class="block py-2.5 px-4 rounded bg-blue-600">Dashboard</a>
-            <a href="analytics.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Analytics</a>
-            <a href="customers.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Customers</a>
+            <a href="analytics.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition text-slate-300">Analytics</a>
+            <a href="customers.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition text-slate-300">Customers</a>
         </nav>
     </div>
 
-    <main class="flex-1 overflow-y-auto">
-        <header class="bg-white shadow-sm p-4 flex justify-between items-center sticky top-0 z-10">
-            <h2 class="text-xl font-semibold text-gray-800">Live Analytics</h2>
-            <div class="h-10 w-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">JD</div>
-        </header>
-
-        <div class="p-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Total Revenue</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-1">$24,500</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Active Users</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-1">1,284</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Avg. Session</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-1">4m 32s</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-800 mb-4">Revenue Growth (6 Months)</h3>
-                    <canvas id="revenueChart" height="200"></canvas>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-800 mb-4">User by Plan</h3>
-                    <div class="max-w-[300px] mx-auto">
-                        <canvas id="planChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-6 border-b border-gray-100"><h3 class="font-bold">Recent Customers</h3></div>
-                <table class="w-full text-left">
-                    <tr class="bg-gray-50 text-xs text-gray-500 uppercase"><th class="p-4">Name</th><th class="p-4">Status</th></tr>
-                    <tr class="border-t border-gray-100"><td class="p-4 text-sm">Alex Rivera</td><td class="p-4"><span class="text-green-600 bg-green-50 px-2 py-1 rounded text-xs">Active</span></td></tr>
-                    <tr class="border-t border-gray-100"><td class="p-4 text-sm">Sarah Jenkins</td><td class="p-4"><span class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded text-xs">Trial</span></td></tr>
-                </table>
+    <main class="flex-1 overflow-y-auto p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-gray-800 mb-4">Revenue Growth</h3>
+                <div id="chart-revenue"></div> </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-gray-800 mb-4">User Split</h3>
+                <div id="chart-users"></div>
             </div>
         </div>
     </main>
 
     <script>
-        // Line Chart Configuration
-        const ctx1 = document.getElementById('revenueChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Revenue ($)',
-                    data: [12000, 19000, 15000, 22000, 24000, 24500],
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: { responsive: true, plugins: { legend: { display: false } } }
+        const data = {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [{ values: [12000, 19000, 15000, 22000, 24000, 24500] }]
+        };
+
+        new frappe.Chart("#chart-revenue", {
+            data: data,
+            type: 'line', 
+            height: 250,
+            colors: ['#3b82f6']
         });
 
-        // Doughnut Chart Configuration
-        const ctx2 = document.getElementById('planChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'doughnut',
+        new frappe.Chart("#chart-users", {
             data: {
-                labels: ['Free', 'Pro', 'Enterprise'],
-                datasets: [{
-                    data: [500, 600, 184],
-                    backgroundColor: ['#e2e8f0', '#3b82f6', '#0f172a'],
-                }]
+                labels: ["Free", "Pro", "Enterprise"],
+                datasets: [{ values: [500, 600, 184] }]
             },
-            options: { responsive: true }
+            type: 'percentage', // Frappe's version of a doughnut/pie
+            height: 250,
+            colors: ['#e2e8f0', '#3b82f6', '#0f172a']
         });
     </script>
 </body>
