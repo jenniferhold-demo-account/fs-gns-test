@@ -14,17 +14,17 @@ return!(h in m)||(m.console&&m.console.log&&m.console.log('FullStory namespace c
 d&&d.then?d.then(b[2],b[3]):b[2]&&b[2](d)})),d.length=0)}function r(b){return function(d){h||(h=[b,d],j())}}return b(r(0),r(1)),{
 then:function(b,h){return p((function(r,i){d.push([b,h,r,i]),j()}))}}}a&&(g=m[e]=function(){var b=function(b,d,j,r){function i(i,c){
 h(b,d,j,i,c,r)}r=r||2;var c,u=/Async$/;return u.test(b)?(b=b.replace(u,""),"function"==typeof Promise?new Promise(i):p(i)):h(b,d,j,c,c,r)}
-;function h(h,d,j,r,i,c){return b._api?b._api(h,d,j,r,i,c):(b.q&&b.q.push([h,d,j,r,i,c]),null)}return b.q=[],b}(),y=function(b){function h(h){
+;function h(h,d,j,r,i,c){return b._api?b._api(h,d,j,r,i,c):(b.q&&b.q.push([h,d,j,r,i,c]),null)}return b}(),y=function(b){function h(h){
 "function"==typeof h[4]&&h[4](new Error(b))}var d=g.q;if(d){for(var j=0;j<d.length;j++)h(d[j]);d.length=0,d.push=h}},function(){
 (o=n.createElement(t)).async=!0,o.crossOrigin="anonymous",o.src="https://"+l,o.onerror=function(){y("Error loading "+l)}
 ;var b=n.getElementsByTagName(t)[0];b&&b.parentNode?b.parentNode.insertBefore(o,b):n.head.appendChild(o)}(),function(){function b(){}
-function h(b,h,d){g(b,h,d,1)}function d(b,d,j){h("setProperties",{type:b,properties:d},j)}function j(b,h){d("user",b,h)}function r(b,h,d){j({
+function h(b,h,d){g(b,h,d,1)}function d(b,h,j){h("setProperties",{type:b,properties:d},j)}function j(b,h){d("user",b,h)}function r(b,h,d){j({
 uid:b},d),h&&j(h,d)}g.identify=r,g.setUserVars=j,g.identifyAccount=b,g.clearUserCookie=b,g.setVars=d,g.event=function(b,d,j){h("trackEvent",{
 name:b,properties:d},j)},g.anonymize=function(){r(!1)},g.shutdown=function(){h("shutdown")},g.restart=function(){h("restart")},
 g.log=function(b,d){h("log",{level:b,msg:d})},g.consent=function(b){h("setIdentity",{consent:!arguments.length||b})}}(),s="fetch",
 f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){return g._w[s].apply(this,arguments)}),g._v="2.0.0")
 }(window,document,window._fs_namespace,"script",window._fs_script);
-</script>
+    </script>
     <title>SaaSly Dashboard2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.css">
@@ -38,7 +38,6 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
     </style>
 </head>
 <body class="bg-gray-50 flex h-screen">
-
     <div class="w-64 bg-slate-900 text-white hidden md:flex flex-col">
         <div class="p-6 text-2xl font-bold border-b border-slate-800">SaaSly</div>
         <nav class="flex-1 p-4 space-y-2">
@@ -47,8 +46,7 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
             <a href="customers.html" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Customers</a>
         </nav>
     </div>
-
-    <main class="flex-1 overflow-y-auto p-6">
+    <main class="flex-1 overflow-y-auto p-6 flex flex-col">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h3 class="font-bold text-gray-800 mb-4">Revenue Growth</h3>
@@ -59,8 +57,10 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
                 <div id="chart2" class="ct-chart"></div>
             </div>
         </div>
+        <div class="mt-auto pt-6 border-t border-gray-200">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition">Test Button</button>
+        </div>
     </main>
-
     <script>
         window.onload = function() {
             // Line Chart
@@ -68,17 +68,16 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
                 series: [[12, 19, 15, 22, 24]]
             });
-
             // Bar Chart
             new Chartist.Bar('#chart2', {
                 labels: ['W1', 'W2', 'W3', 'W4'],
                 series: [[5, 2, 4, 8]]
             });
-            
+
             console.log("Chartist initialized!");
         };
     </script>
-  
+
   <script>
   (function (w, d, s) {
       var a = d.getElementsByTagName('head')[0];
@@ -87,10 +86,9 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
       r.src = s;
       r.setAttribute('id', 'usetifulScript');
       r.dataset.orgId = "o-24MM7K-na1";  // This is your organization ID.
-      
+
       r.dataset.apiHostname = "https://guides.fullstory.com";
       a.appendChild(r);
     })(window, document, "https://guides.fullstory.com/dist/gs.js");</script>
-
 </body>
 </html>
