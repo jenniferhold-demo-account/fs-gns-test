@@ -35,7 +35,7 @@
         .ct-series-a .ct-line { stroke: #3b82f6; stroke-width: 3px; }
         .ct-series-a .ct-point { stroke: #3b82f6; }
         .ct-series-a .ct-bar { stroke: #3b82f6; stroke-width: 20px; }
-        .dropdown:hover .dropdown-menu {
+        .dropdown.open .dropdown-menu {
             display: block;
         }
     </style>
@@ -50,17 +50,6 @@
         </nav>
     </div>
     <main class="flex-1 overflow-y-auto p-6 flex flex-col">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <h3 class="font-bold text-gray-800 mb-4">Revenue Growth</h3>
-                <div id="chart1" class="ct-chart"></div>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <h3 class="font-bold text-gray-800 mb-4">User Activity</h3>
-                <div id="chart2" class="ct-chart"></div>
-            </div>
-        </div>
-
         <!-- Dropdown menu -->
         <div class="relative inline-block text-left mb-6 dropdown">
             <div>
@@ -81,9 +70,63 @@
             </div>
         </div>
 
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-gray-800 mb-4">Revenue Growth</h3>
+                <div id="chart1" class="ct-chart"></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-gray-800 mb-4">User Activity</h3>
+                <div id="chart2" class="ct-chart"></div>
+            </div>
+        </div>
+
         <div class="mt-auto pt-6 border-t border-gray-200">
             <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition">Test Button</button>
         </div>
     </main>
     <script>
+        window.onload = function() {
+            // Line Chart
+            new Chartist.Line('#chart1', {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                series: [[12, 19, 15, 22, 24]]
+            });
+            // Bar Chart
+            new Chartist.Bar('#chart2', {
+                labels: ['W1', 'W2', 'W3', 'W4'],
+                series: [[5, 2, 4, 8]]
+            });
+            console.log("Chartist initialized!");
+        };
+
+        // Dropdown menu toggle
+        const dropdownButton = document.getElementById('options-menu');
+        const dropdownContainer = document.querySelector('.dropdown');
+
+        dropdownButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownContainer.classList.toggle('open');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownContainer.contains(e.target)) {
+                dropdownContainer.classList.remove('open');
+            }
+        });
+    </script>
+    <script>
+        (function (w, d, s) {
+            var a = d.getElementsByTagName('head')[0];
+            var r = d.createElement('script');
+            r.async = 1;
+            r.src = s;
+            r.setAttribute('id', 'usetifulScript');
+            r.dataset.orgId = "o-24MM7K-na1";  // This is your organization ID.
+            r.dataset.apiHostname = "https://guides.fullstory.com";
+            a.appendChild(r);
+        })(window, document, "https://guides.fullstory.com/dist/gs.js");
+    </script>
+</body>
 </html>
