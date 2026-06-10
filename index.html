@@ -62,7 +62,7 @@
         </div>
 
         <!-- Dropdown menu -->
-        <div class="relative inline-block text-left mb-6">
+        <div class="relative inline-block text-left mb-6 dropdown">
             <div>
                 <button class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none" id="options-menu" aria-expanded="true" aria-haspopup="true">
                     Options
@@ -72,11 +72,11 @@
                 </button>
             </div>
 
-            <div class="dropdown-menu absolute right-0 z-10 hidden bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div class="dropdown-menu absolute left-0 z-10 hidden mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Option 1</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Option 2</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Option 3</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Test 1</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Test 2</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Test 3</a>
                 </div>
             </div>
         </div>
@@ -86,31 +86,4 @@
         </div>
     </main>
     <script>
-        window.onload = function() {
-            // Line Chart
-            new Chartist.Line('#chart1', {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                series: [[12, 19, 15, 22, 24]]
-            });
-            // Bar Chart
-            new Chartist.Bar('#chart2', {
-                labels: ['W1', 'W2', 'W3', 'W4'],
-                series: [[5, 2, 4, 8]]
-            });
-            console.log("Chartist initialized!");
-        };
-    </script>
-    <script>
-        (function (w, d, s) {
-            var a = d.getElementsByTagName('head')[0];
-            var r = d.createElement('script');
-            r.async = 1;
-            r.src = s;
-            r.setAttribute('id', 'usetifulScript');
-            r.dataset.orgId = "o-24MM7K-na1";  // This is your organization ID.
-            r.dataset.apiHostname = "https://guides.fullstory.com";
-            a.appendChild(r);
-        })(window, document, "https://guides.fullstory.com/dist/gs.js");
-    </script>
-</body>
 </html>
